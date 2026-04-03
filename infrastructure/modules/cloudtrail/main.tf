@@ -5,6 +5,7 @@ resource "random_id" "suffix" {
 resource "aws_s3_bucket" "cloudtrail_logs" {
   bucket        = "${var.environment}-cloudtrail-logs-${random_id.suffix.hex}"
   force_destroy = true
+
   tags = {
     Name        = "${var.environment}-cloudtrail-logs"
     Environment = var.environment
@@ -22,7 +23,6 @@ resource "aws_s3_bucket_public_access_block" "cloudtrail_logs" {
 
 resource "aws_s3_bucket_policy" "cloudtrail_logs" {
   bucket = aws_s3_bucket.cloudtrail_logs.id
-
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -101,6 +101,8 @@ resource "aws_cloudtrail" "this" {
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_logging                = true
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.cloudtrail.arn}:*"
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_logs.arn
 
   tags = {
     Name        = "${var.environment}-trail"
@@ -108,9 +110,9 @@ resource "aws_cloudtrail" "this" {
   }
 
   depends_on = [
-    aws_s3_bucket_policy.cloudtrail_logs,
     aws_s3_bucket.cloudtrail_logs,
-    aws_s3_bucket_public_access_block.cloudtrail_logs
+    aws_s3_bucket_public_access_block.cloudtrail_logs,
+    aws_s3_bucket_policy.cloudtrail_logs,
+    aws_iam_role_policy.cloudtrail_logs
   ]
 }
-
