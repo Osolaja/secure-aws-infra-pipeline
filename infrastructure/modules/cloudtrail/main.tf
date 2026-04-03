@@ -3,7 +3,7 @@ resource "random_id" "suffix" {
 }
 
 resource "aws_s3_bucket" "cloudtrail_logs" {
-  bucket = "${var.environment}-cloudtrail-logs-${random_id.suffix.hex}"
+  bucket        = "${var.environment}-cloudtrail-logs-${random_id.suffix.hex}"
   force_destroy = true
   tags = {
     Name        = "${var.environment}-cloudtrail-logs"
@@ -22,7 +22,7 @@ resource "aws_s3_bucket_public_access_block" "cloudtrail_logs" {
 
 resource "aws_s3_bucket_policy" "cloudtrail_logs" {
   bucket = aws_s3_bucket.cloudtrail_logs.id
-  
+
 
   policy = jsonencode({
     Version = "2012-10-17"
