@@ -14,7 +14,7 @@ resource "aws_instance" "this" {
   subnet_id                   = var.private_app_subnet_az1_id
   vpc_security_group_ids      = [var.ec2_security_group_id]
   associate_public_ip_address = false
-  iam_instance_profile = var.instance_profile_name
+  iam_instance_profile        = var.instance_profile_name
 
   user_data = <<-EOF
               #!/bin/bash
