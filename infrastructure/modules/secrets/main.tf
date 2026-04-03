@@ -9,7 +9,7 @@ resource "random_password" "db" {
 }
 
 resource "aws_secretsmanager_secret" "db" {
-  name = ""${var.environment}-rds-credentials-${random_id.suffix.hex}"
+  name = "${var.environment}-rds-credentials-${random_id.suffix.hex}"
 
   tags = {
     Name        = "${var.environment}-rds-credentials"
