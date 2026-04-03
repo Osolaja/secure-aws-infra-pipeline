@@ -135,11 +135,5 @@ jobs:
       - name: Terraform init
         run: terraform init
 
-      - name: Download Terraform plan
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-plan
-          path: infrastructure/environments/dev
-
-      - name: Terraform destroy
-        run: terraform destroy -auto-approve tfplan
+      - name: terraform destroy
+        run: terraform destroy -auto-approve
