@@ -141,5 +141,5 @@ jobs:
           name: terraform-plan
           path: infrastructure/environments/dev
 
-      - name: Terraform apply
-        run: terraform apply -auto-approve tfplan
+      - name: Terraform destroy
+        run: terraform destroy -auto-approve tfplan
