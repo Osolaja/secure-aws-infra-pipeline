@@ -4,7 +4,8 @@ resource "random_id" "suffix" {
 
 
 resource "aws_s3_bucket" "this" {
-  bucket = "${var.environment}-secure-bucket-${random_id.suffix.hex}"
+  bucket        = "${var.environment}-secure-bucket-${random_id.suffix.hex}"
+  force_destroy = true
 
   tags = {
     Name        = "${var.environment}-secure-bucket"
