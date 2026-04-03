@@ -22,6 +22,7 @@ resource "aws_s3_bucket_public_access_block" "cloudtrail_logs" {
 
 resource "aws_s3_bucket_policy" "cloudtrail_logs" {
   bucket = aws_s3_bucket.cloudtrail_logs.id
+  force_destroy = true
 
   policy = jsonencode({
     Version = "2012-10-17"
