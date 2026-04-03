@@ -1,0 +1,9 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# Terraform lock (optional to keep or ignore)
+# .terraform.lock.hcl
