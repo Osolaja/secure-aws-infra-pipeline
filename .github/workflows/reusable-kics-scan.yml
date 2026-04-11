@@ -1,0 +1,26 @@
+name: Reusable KICS Scan
+
+on:
+  workflow_call:
+
+jobs:
+  kics-scan:
+    name: KICS Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run KICS scan
+        uses: checkmarx/kics-github-action@v2.1.20
+        with:
+          path: infrastructure
+          fail_on: high
+          output_path: kics-results
+
+      - name: Upload KICS results
+        uses: actions/upload-artifact@v4
+        with:
+          name: kics-results
+          path: kics-results
