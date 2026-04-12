@@ -12,7 +12,6 @@ on:
 jobs:
   terraform-checks-plan:
     uses: ./.github/workflows/reusable-terraform-checks-plan.yml
-    secrets: inherit
 
   kics-scan:
     needs: terraform-checks-plan
@@ -21,4 +20,3 @@ jobs:
   terraform-apply:
     needs: kics-scan
     uses: ./.github/workflows/reusable-terraform-apply.yml
-    secrets: inherit
