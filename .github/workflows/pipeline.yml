@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
 jobs:
   terraform-checks-plan:
     uses: ./.github/workflows/reusable-terraform-checks-plan.yml
